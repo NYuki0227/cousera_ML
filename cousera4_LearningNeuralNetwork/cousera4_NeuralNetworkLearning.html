@@ -11775,26 +11775,29 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">?</span> clear
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clear</span> <span class="nb">all</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#import pylab</span>
-</pre></div>
+<div class="output_wrapper">
+<div class="output">
 
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+</pre>
 </div>
+</div>
+
 </div>
 </div>
 
@@ -12644,7 +12647,42 @@ FAwGQxAmKRgMhiBMUjAYDEGYpGAwGIIwScFgMATxHzrYPX+j+4gzAAAAAElFTkSuQmCC
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Back-Propergation">Back Propergation<a class="anchor-link" href="#Back-Propergation">&#182;</a></h1><p>There is very useful algorithm to calculate gradioent of neural network and it's called "Back Propergation".
 Back Propergation is a algorithm to calculate difference of stacked function, it's not restricted to using gardient of neural network.</p>
-
+$$ 
+J(\Theta) 
+    = \frac{1}{m}\sum_{i = 1}^{m}\sum_{k = 1}^{K} \left[ 
+            -y_k^{(i)}\mathrm{log}\left( 
+                    \left( h_{\theta}\left( x^{(i)}\right) \right)_k
+                \right)
+            -\left( 1 - y_k^{(i)} \right )\mathrm{log}\left( 
+                    1 - \left( h_{\theta}\left( x^{(i)}\right) \right)_k
+                \right)
+        \right]
+        + \frac{\lambda}{2m} 
+            \left[ \sum_{l = 1}^{L}  \sum_{j_l = 1}^{I_l}  \sum_{k_l = 1}^{K_l} \left( \Theta_{i_l j_l}^{(l)} \right)^2\right]
+$$$$
+\frac{\partial}{\partial \Theta_{ij}^{(l)}}J\left( \Theta \right) 
+    = \frac{\partial J\left( \Theta \right) }{\partial z_i^{(l)}}
+            \frac{\partial z_i^{(l)}}{\partial \Theta_{ij}^{(l)}}
+            \left( +\frac{\lambda}{m} \Theta_{ij}^{(l)} \right)
+$$$$
+\frac{\partial J\left( \Theta \right) }{\partial z_i^{(L)}} 
+    = \left( a_i^{(L)} - y_i\right) \equiv \delta_i^{(L)}
+$$$$
+\frac{\partial J\left( \Theta \right) }{\partial z_i^{(L - 1)}} 
+    = \sum_{k}\frac{\partial J\left( \Theta \right) }{\partial z_k^{(L)}}
+        \frac{\partial z_k^{(L)}}{\partial z_i^{(L-1)}} 
+        =\sum_{k}\delta_k^{(L)}
+        \frac{\partial z_k^{(L)}}{\partial z_i^{(L-1)}} \equiv \delta_i^{(L-1)}
+$$$$
+\frac{\partial J\left( \Theta \right) }{\partial z_i^{(l)}} 
+    = \delta_i^{(l)}
+$$$$
+ \delta_i^{(l)} = \sum_{k}\delta_k^{(l+1)} \frac{\partial z_k^{(l+1)}}{\partial z_i^{(l)}} 
+     = \sum_{k}\delta_k^{(l+1)} \Theta_{ki}^{(l+1)} f'(z_i^{(l)})
+$$$$
+\frac{\partial}{\partial \Theta_{ij}^{(l)}}J\left( \Theta \right) 
+    = \delta_{i}^{(l)} a_j^{(l - 1)}
+$$
 </div>
 </div>
 </div>
